@@ -4,7 +4,7 @@
 
     <!-- Table Body -->
     <tbody>
-      @for (data of clients; track data.id;) {
+      @for (data of getPaginationData(); track data.id;) {
       <tr [ngClass]="$first ? 'table-header-row' : ''">
         <!-- Name Column -->
         <td class="align-middle">
@@ -59,7 +59,7 @@
       <select
         id="page-size"
         class="form-select form-select-sm text-center"
-        (change)="changePageSize(pageSize)"
+        (change)="changePageSize($any($event.target).value)"
       >
         @for (size of pageSizeOptions; track size) {
         <option [value]="size">{{ size }}</option>
@@ -71,24 +71,23 @@
 
     <!-- Page navigation buttons -->
     <div class="page-navigation d-flex align-items-center gap-2">
+      @if((getNumberOfPages.length - 1)){
       <button
         title="Previous Page"
         (click)="prevPage()"
         [disabled]="page === 1"
         class="btn btn-outline-primary btn-sm"
       >
-        <i class="fa-solid fa-chevron-right"></i>
-      </button>
-
-      @for(count of getPageNumbers(); track count) {
+        <i class="fa-solid fa-chevron-right"></i></button
+      >} @for (count of getPageNumbers(); track count) {
       <button
-        (click)="goToPage(count + 1)"
+        (click)="goToPage(count)"
         [class.active]="page === count"
         class="btn btn-outline-primary btn-sm"
       >
         {{ count }}
       </button>
-      }
+      } @if((getNumberOfPages.length - 1)){
 
       <button
         title="Next Page"
@@ -98,6 +97,7 @@
       >
         <i class="fa-solid fa-angle-left"></i>
       </button>
+      }
     </div>
   </div>
 </div>

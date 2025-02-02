@@ -82,33 +82,48 @@ export class ContentBodyComponent  {
     coast:'100'
   }
 ]
+  page: number = 1;
+  pageSize: number = 5;
+  pageSizeOptions = [5, 10, 20];
+  totalPages: number = this.getNumberOfPages();
 
-page:number=1;
-pageSize:number=5;
-totalPages:number=  Math.ceil(this.clients.length/this.pageSize);
-pageSizeOptions = [5, 10, 20]; // Page size options
-
-prevPage():void{
-  this.page--;
-}
-nextPage(): void {
-  if (this.page < this.totalPages) {
-    ++this.page;
+  prevPage(): void {
+    if (this.page > 1) {
+      this.page--;
+    }
   }
-}
-changePageSize(value:number):void{
-  this.pageSize=value;
-  this.page=1;
-}
-getPaginationData(){
-  const startIndex=(this.page-1)*this.pageSize;
-  const endIndex=startIndex+this.pageSize;
-  return this.clients.slice(startIndex,endIndex);
-}
-goToPage(page:number):void{
-  this.page=page;
-}
-getPageNumbers():number[]{
-  return Array.from({length:this.totalPages},(_,i)=>i+1);
-}
+
+  nextPage(): void {
+    if (this.page < this.totalPages) {
+      this.page++;
+    }
+  }
+
+  changePageSize(value: number): void {
+    this.pageSize = value;
+    this.page = 1; // Reset to the first page
+    this.totalPages = this.getNumberOfPages(); // Recalculate total pages
+    console.log('Page size changed to:', this.pageSize);
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.page = page;
+      console.log('Navigated to page:', this.page);
+    }
+  }
+
+  getPaginationData(): any[] {
+    const startIndex = (this.page - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.clients.slice(startIndex, endIndex);
+  }
+
+  getPageNumbers(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  getNumberOfPages(): number {
+    return Math.ceil(this.clients.length / this.pageSize);
+  }
 }

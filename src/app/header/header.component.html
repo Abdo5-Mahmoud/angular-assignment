@@ -1,0 +1,92 @@
+<div class="content-header rounded">
+  <!-- Add 'rounded' class here -->
+  <div class="d-flex justify-content-between align-items-center px-3 py-1">
+    <div
+      class="numberInUse d-flex justify-content-start align-items-center gap-2"
+    >
+      <p>01234567890</p>
+      <p class="status">قيد الاستخدام</p>
+    </div>
+    <div class="button-container">
+      <i
+        class="fa-solid fa-ellipsis toggleButton"
+        [ngClass]="{ active: showButton }"
+        (click)="toggleButton()"
+      ></i>
+      <div *ngIf="showButton" class="toggled-button">
+        <div class="">
+          <i class="fa-solid fa-pen"></i>
+          <p>تعديل الرقم</p>
+        </div>
+        <div class="lastOne">
+          <i class="fa-solid fa-link-slash"></i>
+          <p>الغاء التعيين</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-body d-flex flex-column">
+    <div class="header-row d-flex justify-content-center align-items-center">
+      <div class="">
+        <p>{{ headerTitle.name }}</p>
+        <p>
+          {{ headerDetails.name }}
+        </p>
+      </div>
+      <div class="">
+        <p>{{ headerTitle.country }}</p>
+        <p>
+          <span>
+            <img
+              class="rounded-circle"
+              src="./Flag_of_Saudi_Arabia.svg.webp"
+              alt="saudi arabia flag"
+              width="15"
+              height="15"
+            />
+          </span>
+          {{ headerDetails.country }}
+        </p>
+      </div>
+      <div class="">
+        <p>{{ headerTitle.currentCustomer }}</p>
+        <p class="text-truncate">
+          <span
+            ><img
+              class="rounded-circle"
+              src="./images.jpeg"
+              alt=""
+              width="15"
+              height="15"
+          /></span>
+          {{ headerDetails.currentCustomer }}
+        </p>
+      </div>
+      <div class="">
+        <p>{{ headerTitle.suppliesNumber }}</p>
+        <p>{{ headerDetails.suppliesNumber }}</p>
+      </div>
+    </div>
+    <div class="header-row d-flex justify-content-center align-items-center">
+      <div class="">
+        <p>{{ headerTitle.lastSheapDate }}</p>
+        <p>
+          {{ headerDetails.lastSheapDate }}
+        </p>
+      </div>
+      <div class="">
+        <p>{{ headerTitle.currentCash }}</p>
+        <p>{{ headerDetails.currentCash }}</p>
+      </div>
+      <div class="">
+        <p>{{ headerTitle.cashInUse }}</p>
+        <p>{{ headerDetails.cashInUse }}</p>
+      </div>
+      <div class="">
+        <p>{{ headerTitle.totalCashUsed }}</p>
+        <p>{{ headerDetails.totalCashUsed }}</p>
+      </div>
+    </div>
+  </div>
+</div>

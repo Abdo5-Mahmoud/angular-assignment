@@ -1,0 +1,103 @@
+<div class="content-body">
+  <table class="table">
+    <!-- Table Header -->
+
+    <!-- Table Body -->
+    <tbody>
+      @for (data of clients; track data.id;) {
+      <tr [ngClass]="$first ? 'table-header-row' : ''">
+        <!-- Name Column -->
+        <td class="align-middle">
+          @if (!$first) {
+          <img
+            class="rounded-circle me-2"
+            src="./images.jpeg"
+            alt=""
+            width="25"
+            height="25"
+          />
+          }
+          <span
+            class="text-truncate"
+            style="max-width: 150px; display: inline-block"
+          >
+            {{ data.name }}
+          </span>
+        </td>
+
+        <!-- Start Date Column -->
+        <td class="align-middle">{{ data.startDate }}</td>
+
+        <!-- Cancel Date Column -->
+        <td class="align-middle">{{ data.cancelDate }}</td>
+
+        <!-- Responsible Column -->
+        <td class="align-middle">{{ data.responsible }}</td>
+
+        <!-- Local Minutes Column -->
+        <td class="align-middle">{{ data.localMinutes }}</td>
+
+        <!-- Global Minutes Column -->
+        <td class="align-middle">{{ data.globalMinutes }}</td>
+
+        <!-- Coast Column -->
+        <td class="align-middle">{{ data.coast }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <div
+    class="pagination-controls d-flex justify-content-between align-items-center p-3 bg-light rounded shadow-sm text-end"
+    dir="rtl"
+  >
+    <!-- Items per page dropdown -->
+    <div
+      class="page-size-control d-flex align-items-center justify-content-center gap-2"
+    >
+      <label for="page-size" class="mb-0">عرض</label>
+      <select
+        id="page-size"
+        class="form-select form-select-sm text-center"
+        (change)="changePageSize(pageSize)"
+      >
+        @for (size of pageSizeOptions; track size) {
+        <option [value]="size">{{ size }}</option>
+        }
+      </select>
+      <p class="px-2">من اصل</p>
+      {{ clients.length }}
+    </div>
+
+    <!-- Page navigation buttons -->
+    <div class="page-navigation d-flex align-items-center gap-2">
+      <button
+        title="Previous Page"
+        (click)="prevPage()"
+        [disabled]="page === 1"
+        class="btn btn-outline-primary btn-sm"
+      >
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+      @for(count of getPageNumbers(); track count) {
+      <button
+        (click)="goToPage(count + 1)"
+        [class.active]="page === count"
+        class="btn btn-outline-primary btn-sm"
+      >
+        {{ count }}
+      </button>
+      }
+
+      <button
+        title="Next Page"
+        (click)="nextPage()"
+        [disabled]="page === totalPages"
+        class="btn btn-outline-primary btn-sm"
+      >
+        <i class="fa-solid fa-angle-left"></i>
+      </button>
+    </div>
+  </div>
+</div>
